@@ -1,8 +1,9 @@
 import { useState } from "react";
+import type { KeyboardEvent, ChangeEvent } from "react";
 import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
   const handleSend = () => {
     if (!message.trim()) return;
@@ -10,10 +11,14 @@ function App() {
     setMessage("");
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSend();
     }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
   };
 
   return (
@@ -24,7 +29,7 @@ function App() {
             type="text"
             placeholder="Type a message..."
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyPress}
           />
           <button onClick={handleSend}>Send</button>
