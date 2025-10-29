@@ -1,14 +1,16 @@
 import { useState } from "react";
 import type { KeyboardEvent, ChangeEvent } from "react";
 import "./App.css";
+import { askBackend } from "./api/requests.ts";
 
 function App() {
   const [message, setMessage] = useState<string>("");
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!message.trim()) return;
-    alert(`Sending message: ${message}`);
+    const response = await askBackend(message);
     setMessage("");
+    console.log(response);
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
