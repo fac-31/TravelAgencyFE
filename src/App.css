@@ -1,53 +1,191 @@
-/* Center everything nicely */
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body,
+html,
+#root {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+}
+
+/* Main container */
 .app {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
-  font-family: Arial, sans-serif;
+  padding: 20px;
+  height: 100%;
+}
+
+h1 {
+  font-size: larger;
 }
 
 /* Chat container */
 .chat-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-width: 500px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  max-width: 1080px;
+  height: 80%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Input area at the bottom */
+/* Header */
+.header {
+  padding: 15px;
+  text-align: center;
+  background: linear-gradient(90deg, #ff758c, #ff7eb3);
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Messages */
+.messages {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+/* Chat bubbles */
+.message {
+  max-width: 70%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #fcd34d, #fbbf24);
+  color: #111827;
+  border-bottom-left-radius: 4px;
+}
+
+/* Typing indicator */
+.message.typing {
+  background: transparent;
+  box-shadow: none;
+  align-self: flex-start;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+  height: 10px;
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
+  background: #fbbf24;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1s infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Input area */
 .input-area {
   display: flex;
+  padding: 15px;
   gap: 10px;
+  background: #ffffffcc;
+  border-top: 1px solid #e5e7eb;
+  backdrop-filter: blur(5px);
 }
 
-input {
+.input-area input {
   flex: 1;
   padding: 12px 16px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  border-radius: 16px;
+  border: 1px solid #d1d5db;
   outline: none;
+  font-size: 14px;
+  transition: all 0.2s;
 }
 
-input:focus {
-  border-color: #007bff;
+.input-area input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
 }
 
-button {
+.input-area button {
   padding: 12px 20px;
-  border-radius: 25px;
-  border: none;
-  background-color: #007bff;
+  background: #3b82f6;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
-button:hover {
-  background-color: #0056b3;
+.input-area button:hover {
+  background: #2563eb;
+}
+
+/* Scrollbar */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
